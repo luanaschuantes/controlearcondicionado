@@ -1,23 +1,52 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Controle do Ar-Condicionado - Sala de Aula</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Controle - Ar Condicionado</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header>
+    <h1>❄️ Painel de Controle - Ar Condicionado</h1>
+  </header>
 
-  <h1>Controle do Ar-Condicionado</h1>
+  <!-- Informações fixas no canto -->
+  <aside id="infoEscola">
+    <p><strong>Colégio São Cristóvão</strong></p>
+    <p>Capanema - Paraná</p>
+    <p>Sala: <strong>2°TEC</strong></p>
+  </aside>
 
-  <div class="card">
-    <h2>Sala 101</h2>
-    <p>🌡️ Temperatura atual: <span id="temp">--</span> °C</p>
-    <p>💨 Umidade: <span id="umid">--</span>%</p>
-    <p>Status do Ar: <span id="status">Desligado</span></p>
+  <main>
+    <section class="info">
+      <p><strong>Temperatura:</strong> <span id="temp">-- °C</span></p>
+      <p><strong>Umidade:</strong> <span id="umid">-- %</span></p>
+      <p><strong>Status:</strong> <span id="status" class="desligado">Desconhecido</span></p>
+      <p><strong>Última atualização:</strong> <span id="ultimaAtualizacao">--:--</span></p>
+      <p><strong>Data/Hora atual:</strong> <span id="dataHora">--/--/---- --:--</span></p>
+      <p id="alerta"></p>
+    </section>
 
-    <button class="on" onclick="ligarAC()">Ligar</button>
-    <button class="off" onclick="desligarAC()">Desligar</button>
-  </div>
+    <section class="controles">
+      <button onclick="alternarAC()" id="btnToggle">🔘 Ligar/Desligar</button>
+      <button onclick="setTemperaturaDesejada()">🌡️ Definir Temperatura</button>
+      <button onclick="modoEconomico()">💡 Modo Econômico</button>
+      <button onclick="atualizarDados()">🔄 Atualizar Agora</button>
+    </section>
+
+    <section class="extra">
+      <h2>📊 Informações Extras</h2>
+      <p><strong>Temperatura desejada:</strong> <span id="tempDesejada">24 °C</span></p>
+      <p><strong>Consumo estimado:</strong> <span id="consumo">-- kWh</span></p>
+    </section>
+
+    <div id="loader">⏳ Atualizando...</div>
+  </main>
+
+  <footer>
+    <p>Projeto de Automação com Arduino © 2025</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
