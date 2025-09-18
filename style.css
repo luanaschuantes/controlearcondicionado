@@ -1,45 +1,113 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f0f4f7;
-  text-align: center;
+/* Reset básico */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
 }
 
-h1 {
-  margin-top: 20px;
-  color: #333;
+body {
+  background: linear-gradient(135deg, #1e90ff, #00c3ff);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 }
 
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  margin: 20px auto;
-  width: 320px;
+/* Cabeçalho */
+header {
+  background: #ff0080;
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+  color: white;
+  font-size: 1.6rem;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Informações fixas no canto */
+#infoEscola {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: rgba(0,0,0,0.5);
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  text-align: left;
+  color: #ffe600;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+main {
+  flex: 1;
+  width: 90%;
+  max-width: 650px;
+  margin: 1rem auto;
+  background: rgba(255,255,255,0.1);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.info, .controles, .extra {
+  margin-bottom: 1.5rem;
+}
+
+.info p, .extra p {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+#status.ligado {
+  color: #00ff88;
+  font-weight: bold;
+}
+#status.desligado {
+  color: #ff4444;
+  font-weight: bold;
+}
+
+.controles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
 }
 
 button {
-  padding: 10px 20px;
-  margin: 10px;
+  background: #ff6600;
+  color: white;
   border: none;
-  border-radius: 10px;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  font-size: 16px;
   transition: 0.3s;
 }
-
 button:hover {
-  opacity: 0.8;
+  background: #ff8800;
+  transform: scale(1.05);
 }
 
-.on {
-  background: #4CAF50;
-  color: white;
+#loader {
+  display: none;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 1rem;
+  color: #ffe600;
 }
 
-.off {
-  background: #f44336;
-  color: white;
+footer {
+  background: #222;
+  color: #aaa;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
 }
+
