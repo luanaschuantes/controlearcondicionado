@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Controle do Ar-Condicionado - Sala de Aula</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Controle do Ar-Condicionado</h1>
+
+  <div class="card">
+    <h2>Sala 101</h2>
+    <p>🌡️ Temperatura atual: <span id="temp">--</span> °C</p>
+    <p>💨 Umidade: <span id="umid">--</span>%</p>
+    <p>Status do Ar: <span id="status">Desligado</span></p>
+
+    <button class="on" onclick="ligarAC()">Ligar</button>
+    <button class="off" onclick="desligarAC()">Desligar</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
