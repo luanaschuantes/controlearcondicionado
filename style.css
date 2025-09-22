@@ -7,8 +7,12 @@
 }
 
 body {
-    /* 🌸 Fundo rosa claro suave */
+    /* 🌸 Fundo rosa claro com textura */
     background: linear-gradient(135deg, #ffdee9, #ffcce0, #f9dfe7);
+    background-image: url('https://www.transparenttextures.com/patterns/pink-pixels.png');
+    background-repeat: repeat;
+    background-size: auto;
+    
     color: #222;
     min-height: 100vh;
     display: flex;
@@ -39,7 +43,7 @@ header {
     border-radius: 10px;
     font-size: 0.9rem;
     text-align: left;
-    color: #c2185b; 
+    color: #4a148c; /* ✅ Roxo escuro */
     font-weight: bold;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     z-index: 10;
@@ -125,74 +129,5 @@ main {
 /* --- BOTÕES --- */
 .controles {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-}
-
-button {
-    background: #f48fb1; 
-    color: #222;
-    border: none;
-    padding: 1rem;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-}
-button:hover {
-    background: #ec407a; 
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 10px rgba(0,0,0,0.4);
-}
-
-/* --- FOOTER & LOADER --- */
-#loader {
-    display: none;
-    text-align: center;
-    font-weight: bold;
-    margin-top: 1rem;
-    color: #ad1457; 
-    font-size: 1.1rem;
-}
-
-footer {
-    background: #222;
-    color: #ccc;
-    width: 100%;
-    text-align: center;
-    padding: 1rem;
-    font-size: 0.9rem;
-}
-
-/* --- RESPONSIVO --- */
-@media (max-width: 768px) {
-    main {
-        width: 95%;
-        padding: 1rem;
-    }
-
-    .controles {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 0.7rem;
-    }
-
-    button {
-        padding: 0.8rem;
-        font-size: 0.9rem;
-    }
-
-    .info p, .secundario p, .extra p {
-        flex-direction: column;
-        align-items: flex-start;
-        font-size: 1rem;
-    }
-
-    .info p strong, .secundario p strong, .extra p strong {
-        flex-basis: 100%;
-        margin-bottom: 0.2rem;
-    }
-}
+    grid-te
 
