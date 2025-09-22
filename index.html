@@ -9,6 +9,7 @@
 <body>
     <header>
         <h1>❄️ Painel de Controle - Ar Condicionado</h1>
+        <p>Sistema de Monitoramento e Controle Inteligente</p>
     </header>
 
     <aside id="infoEscola">
@@ -18,55 +19,59 @@
     </aside>
 
     <main>
+        <!-- INFORMAÇÕES PRINCIPAIS -->
         <section class="info">
+            <h2>📡 Ambiente Atual</h2>
             <p><strong>Temperatura Ambiente:</strong> <span id="temp">-- °C</span></p>
             <p><strong>Temperatura Externa:</strong> <span id="tempExterna">-- °C</span></p> 
             <p><strong>Umidade Relativa:</strong> <span id="umid">-- %</span></p>
             <p><strong>Status Operacional:</strong> <span id="status" class="desligado">Desconhecido</span></p>
             <p><strong>Última leitura:</strong> <span id="ultimaAtualizacao">--:--</span></p>
             <p><strong>Data/Hora atual:</strong> <span id="dataHora">--/--/---- --:--</span></p>
-            <p id="alerta"></p>
+            <p id="alerta" class="alerta"></p>
         </section>
 
-        <section class="secundario">
-            <h2>🛠️ Detalhes e Diagnóstico</h2>
+        <!-- CONTROLE -->
+        <section class="controles">
+            <h2>🧩 Controles do Sistema</h2>
+            <button onclick="alternarAC()">🔘 Ligar/Desligar</button>
+            <button onclick="setTemperaturaDesejada()">🌡️ Definir Temperatura</button>
+            <button onclick="modoEconomico()">💡 Modo Econômico</button>
+            <button onclick="modoTurbo()">🚀 Modo Turbo</button>
+            <button onclick="resetSistema()">♻️ Reiniciar Sistema</button>
+            <button onclick="atualizarDados()">🔄 Atualizar</button>
+            <button onclick="exportarCSV()">📁 Exportar CSV</button>
+            <button onclick="modoAutomatico()">🤖 Modo Automático</button>
+        </section>
 
+        <!-- DETALHES E DIAGNÓSTICO -->
+        <section class="secundario">
+            <h2>🛠️ Detalhes Técnicos</h2>
             <p><strong>Tempo de Funcionamento:</strong> <span id="tempoFunc">--</span></p>
             <p><strong>Status do Compressor:</strong> <span id="statusCompressor">Inativo</span></p>
             <p><strong>Velocidade do Fluxo:</strong> <span id="velocidadeFluxo">Média</span></p>
             <p><strong>Temp. Evaporador:</strong> <span id="tempEvaporador">-- °C</span></p>
-            
+            <p><strong>Eficiência Energética:</strong> <span id="eficienciaEnergetica">--</span></p>
+            <p><strong>Status Sensores:</strong> <span id="statusSensores">OK</span></p>
             <hr>
-
-            <p><strong>Status de Conexão:</strong> <span id="conexao" class="inativo">Offline</span></p>
-            <p><strong>Versão do Firmware:</strong> <span id="firmware">V1.0</span></p> 
-            </section>
-
-        <section class="controles">
-            <button onclick="alternarAC()" id="btnToggle">🔘 Ligar/Desligar</button>
-            <button onclick="setTemperaturaDesejada()">🌡️ Definir Temperatura</button>
-            <button onclick="modoEconomico()">💡 Modo Econômico</button>
-            <button onclick="atualizarDados()">🔄 Atualizar Agora</button>
+            <p><strong>Conexão:</strong> <span id="conexao" class="inativo">Offline</span></p>
+            <p><strong>Firmware:</strong> <span id="firmware">V1.0</span></p> 
+            <p><strong>IP do Dispositivo:</strong> <span id="ipDispositivo">--</span></p>
         </section>
 
+        <!-- CONFIGURAÇÕES -->
         <section class="extra">
-            <h2>📊 Configurações e Manutenção</h2>
-            
-            <p><strong>Temperatura desejada:</strong> <span id="tempDesejada">24 °C</span></p>
-            <p><strong>Consumo estimado (Total):</strong> <span id="consumo">-- kWh</span></p>
+            <h2>📊 Configurações e Métricas</h2>
+            <p><strong>Temperatura Desejada:</strong> <span id="tempDesejada">24 °C</span></p>
+            <p><strong>Consumo Estimado:</strong> <span id="consumo">-- kWh</span></p>
             <p><strong>Modo Atual:</strong> <span id="modoAtual">Frio</span></p>
             <p><strong>Vida Útil do Filtro:</strong> <span id="filtroVidaUtil">100%</span></p> 
-            <p><strong>Último Alerta Grave:</strong> <span id="historicoAlerta">Nenhum (0 dias)</span></p> 
-            
+            <p><strong>Último Alerta Grave:</strong> <span id="historicoAlerta">Nenhum</span></p> 
         </section>
 
-        <div id="loader">⏳ Atualizando...</div>
-    </main>
+        <!-- PREVISÃO DO TEMPO -->
+        <section class="clima">
+            <h2>☀️ Previsão do Tempo</h2>
+            <p><strong>Hoje:</strong> <span id="climaHoje">--</span></p>
+            <p><strong>Amanhã:</strong> <span id="climaAmanha">--</span></p
 
-    <footer>
-        <p>Projeto de Automação com Arduino © 2025</p>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
