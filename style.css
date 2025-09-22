@@ -7,7 +7,8 @@
 }
 
 body {
-    /* 🌸 Fundo rosa claro com textura */
+    /* 🌸 Fundo rosa claro com textura e gradiente */
+    background-color: #ffe4e6; /* rosa claro por baixo */
     background: linear-gradient(135deg, #ffdee9, #ffcce0, #f9dfe7);
     background-image: url('https://www.transparenttextures.com/patterns/pink-pixels.png');
     background-repeat: repeat;
@@ -73,61 +74,5 @@ main {
 }
 
 .secundario h2, .extra h2 {
-    color: #d81b60;
-    margin-top: 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    padding-bottom: 5px;
-    margin-bottom: 1rem;
-    font-size: 1.4rem;
-}
-
-.info p, .secundario p, .extra p {
-    margin: 0.5rem 0;
-    font-size: 1.1rem;
-    display: flex;
-    justify-content: space-between;
-}
-
-.info p strong, .secundario p strong, .extra p strong {
-    flex-basis: 50%;
-}
-
-/* --- ESTILOS DE STATUS E ALERTA --- */
-#status.ligado {
-    color: #2e7d32;
-    font-weight: bold;
-}
-#status.desligado {
-    color: #c62828;
-    font-weight: bold;
-}
-
-#alerta {
-    color: #ad1457;
-    font-weight: bold;
-    font-size: 1.2rem;
-    padding: 5px 0;
-    text-align: center;
-}
-
-/* Status de Conexão */
-#conexao.ativo {
-    color: #2e7d32;
-    font-weight: bold;
-}
-#conexao.inativo {
-    color: #c62828;
-    font-weight: bold;
-}
-
-/* Vida útil do filtro */
-#filtroVidaUtil[data-status="baixo"] {
-    color: #9c27b0; 
-    font-weight: bold;
-}
-
-/* --- BOTÕES --- */
-.controles {
-    display: grid;
-    grid-te
+    color: #d81b60
 
