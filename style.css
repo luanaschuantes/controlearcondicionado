@@ -7,9 +7,9 @@
 }
 
 body {
-    /* Gradiente de fundo azul escuro (mantido para contraste) */
-    background: linear-gradient(135deg, #1f4788, #3b82f6);
-    color: #fff;
+    /* 🌸 Fundo rosa claro suave */
+    background: linear-gradient(135deg, #ffdee9, #ffcce0, #f9dfe7);
+    color: #222;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -19,8 +19,7 @@ body {
 
 /* Cabeçalho */
 header {
-    /* Cor de destaque (magenta/rosa) */
-    background: #e91e63;
+    background: #d81b60; /* Rosa escuro para destaque */
     width: 100%;
     padding: 1rem;
     text-align: center;
@@ -35,15 +34,14 @@ header {
     position: absolute;
     top: 15px;
     left: 15px;
-    background: rgba(0,0,0,0.5);
+    background: rgba(255,255,255,0.3);
     padding: 10px 15px;
     border-radius: 10px;
     font-size: 0.9rem;
     text-align: left;
-    /* Roxo Claro para o texto da escola */
-    color: #BB86FC; 
+    color: #c2185b; 
     font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     z-index: 10;
 }
 
@@ -52,31 +50,28 @@ main {
     width: 90%;
     max-width: 700px;
     margin: 1.5rem auto;
-    background: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.6);
     padding: 2rem;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 /* --- ESTILOS PARA AS SEÇÕES --- */
-
 .info, .secundario, .extra {
     margin-bottom: 1.8rem;
     padding: 1rem;
     border-radius: 10px;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.4);
 }
 
 .secundario {
-    background: rgba(255, 255, 255, 0.1);
-    /* Borda de destaque (Cyan) */
-    border-left: 5px solid #00ffff; 
+    border-left: 5px solid #ff80ab; 
 }
 
 .secundario h2, .extra h2 {
-    color: #00ffff;
+    color: #d81b60;
     margin-top: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     padding-bottom: 5px;
     margin-bottom: 1rem;
     font-size: 1.4rem;
@@ -94,44 +89,40 @@ main {
 }
 
 /* --- ESTILOS DE STATUS E ALERTA --- */
-
 #status.ligado {
-    color: #00ff88;
+    color: #2e7d32;
     font-weight: bold;
 }
 #status.desligado {
-    color: #ff4444;
+    color: #c62828;
     font-weight: bold;
 }
 
 #alerta {
-    /* Roxo/Magenta claro para o alerta */
-    color: #FFC0CB; 
+    color: #ad1457;
     font-weight: bold;
     font-size: 1.2rem;
     padding: 5px 0;
     text-align: center;
 }
 
-/* Classes para Status de Conexão */
+/* Status de Conexão */
 #conexao.ativo {
-    color: #00ff88;
+    color: #2e7d32;
     font-weight: bold;
 }
 #conexao.inativo {
-    color: #ff4444;
+    color: #c62828;
     font-weight: bold;
 }
 
-/* Estilo para a vida útil do filtro (Alerta de manutenção) */
+/* Vida útil do filtro */
 #filtroVidaUtil[data-status="baixo"] {
-    /* Um roxo mais escuro/sutil para aviso */
-    color: #9D5CFF; 
+    color: #9c27b0; 
     font-weight: bold;
 }
 
-/* --- BOTÕES E CONTROLES --- */
-
+/* --- BOTÕES --- */
 .controles {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -139,9 +130,8 @@ main {
 }
 
 button {
-    /* Roxo Claro para o fundo do botão */
-    background: #BB86FC; 
-    color: #222; /* Cor do texto escuro para melhor leitura no roxo claro */
+    background: #f48fb1; 
+    color: #222;
     border: none;
     padding: 1rem;
     border-radius: 12px;
@@ -152,30 +142,57 @@ button {
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
 }
 button:hover {
-    /* Roxo mais escuro para o hover */
-    background: #9D5CFF; 
-    color: white; /* Texto claro no roxo mais escuro */
+    background: #ec407a; 
+    color: white;
     transform: translateY(-2px);
     box-shadow: 0 6px 10px rgba(0,0,0,0.4);
 }
 
-/* --- ELEMENTOS DE FOOTER E LOADER --- */
-
+/* --- FOOTER & LOADER --- */
 #loader {
     display: none;
     text-align: center;
     font-weight: bold;
     margin-top: 1rem;
-    /* Roxo Claro para o loader */
-    color: #BB86FC; 
+    color: #ad1457; 
     font-size: 1.1rem;
 }
 
 footer {
-    background: #111;
-    color: #aaa;
+    background: #222;
+    color: #ccc;
     width: 100%;
     text-align: center;
     padding: 1rem;
     font-size: 0.9rem;
 }
+
+/* --- RESPONSIVO --- */
+@media (max-width: 768px) {
+    main {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    .controles {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 0.7rem;
+    }
+
+    button {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .info p, .secundario p, .extra p {
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 1rem;
+    }
+
+    .info p strong, .secundario p strong, .extra p strong {
+        flex-basis: 100%;
+        margin-bottom: 0.2rem;
+    }
+}
+
