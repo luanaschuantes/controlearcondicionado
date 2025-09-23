@@ -7,12 +7,8 @@
 }
 
 body {
-    /* 🌸 Fundo rosa claro com textura e gradiente */
-    background-color: #ffe4e6; /* rosa claro por baixo */
-    background: linear-gradient(135deg, #ffdee9, #ffcce0, #f9dfe7);
-    background-image: url('https://www.transparenttextures.com/patterns/pink-pixels.png');
-    background-repeat: repeat;
-    background-size: auto;
+    /* Fundo rosa claro sem gradiente ou textura */
+    background-color: #ffe4e6;
     
     color: #222;
     min-height: 100vh;
@@ -70,9 +66,9 @@ main {
 }
 
 .secundario {
-    border-left: 5px solid #ff80ab; 
+    border-left: 5px solid #ff80ab;
 }
 
 .secundario h2, .extra h2 {
     color: #d81b60
-
+}
