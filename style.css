@@ -40,7 +40,7 @@ header {
     border-radius: 10px;
     font-size: 0.9rem;
     text-align: left;
-    color: #4a148c; /* ✅ Roxo escuro */
+    color: #4a148c; /* Roxo escuro */
     font-weight: bold;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     z-index: 10;
@@ -57,8 +57,8 @@ main {
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-/* --- ESTILOS PARA AS SEÇÕES --- */
-.info, .secundario, .extra {
+/* --- ESTILOS GERAIS PARA AS SEÇÕES --- */
+.info, .secundario, .extra, .info-tecnica, .clima {
     margin-bottom: 1.8rem;
     padding: 1rem;
     border-radius: 10px;
@@ -67,8 +67,58 @@ main {
 
 .secundario {
     border-left: 5px solid #ff80ab;
+    margin-top: 1.5rem;
 }
 
-.secundario h2, .extra h2 {
-    color: #d81b60
+.secundario h2, .extra h2, .info-tecnica h2, .clima h2 {
+    color: #d81b60;
+    margin-bottom: 1rem;
+}
+
+/* --- ESTILOS PARA OS CONTROLES DO SISTEMA --- */
+.controles .grupo-botoes {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.controles h3 {
+    font-size: 1.3rem;
+    color: #4a148c;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #d81b60;
+    padding-bottom: 0.5rem;
+}
+
+.controles .btn {
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #ff80ab;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.controles .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* --- ESTILOS PARA OS STATUS DE CONEXÃO --- */
+.ativo {
+    color: #4CAF50; /* Verde para "Online" */
+    font-weight: bold;
+}
+
+.inativo {
+    color: #F44336; /* Vermelho para "Offline" */
+    font-weight: bold;
 }
