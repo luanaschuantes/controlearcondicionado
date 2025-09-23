@@ -19,59 +19,96 @@
     </aside>
 
     <main>
-        <!-- INFORMAÇÕES PRINCIPAIS -->
         <section class="info">
-            <h2>📡 Ambiente Atual</h2>
-            <p><strong>Temperatura Ambiente:</strong> <span id="temp">-- °C</span></p>
-            <p><strong>Temperatura Externa:</strong> <span id="tempExterna">-- °C</span></p> 
-            <p><strong>Umidade Relativa:</strong> <span id="umid">-- %</span></p>
-            <p><strong>Status Operacional:</strong> <span id="status" class="desligado">Desconhecido</span></p>
-            <p><strong>Última leitura:</strong> <span id="ultimaAtualizacao">--:--</span></p>
-            <p><strong>Data/Hora atual:</strong> <span id="dataHora">--/--/---- --:--</span></p>
-            <p id="alerta" class="alerta"></p>
+            <h2>📡 Ambiente e Status Atual</h2>
+            
+            <section class="secundario">
+                <h3>Condições Atuais</h3>
+                <ul>
+                    <li><strong>Temperatura Ambiente:</strong> <span id="temp">-- °C</span></li>
+                    <li><strong>Temperatura Externa:</strong> <span id="tempExterna">-- °C</span></li>
+                    <li><strong>Umidade Relativa:</strong> <span id="umid">-- %</span></li>
+                </ul>
+            </section>
+            
+            <section class="secundario">
+                <h3>Status do Dispositivo</h3>
+                <ul>
+                    <li><strong>Status Operacional:</strong> <span id="status" class="desligado">Desconhecido</span></li>
+                    <li><strong>Modo Atual:</strong> <span id="modoAtual">Frio</span></li>
+                    <li><strong>Temperatura Desejada:</strong> <span id="tempDesejada">24 °C</span></li>
+                </ul>
+            </section>
         </section>
 
-        <!-- CONTROLE -->
+        <section class="extra">
+            <h2>⚠️ Avisos e Alertas</h2>
+            <p id="alerta" class="alerta">Nenhum alerta ativo.</p>
+            <p><strong>Último Alerta Grave:</strong> <span id="historicoAlerta">Nenhum</span></p>
+        </section>
+
         <section class="controles">
             <h2>🧩 Controles do Sistema</h2>
-            <button onclick="alternarAC()">🔘 Ligar/Desligar</button>
-            <button onclick="setTemperaturaDesejada()">🌡️ Definir Temperatura</button>
-            <button onclick="modoEconomico()">💡 Modo Econômico</button>
-            <button onclick="modoTurbo()">🚀 Modo Turbo</button>
-            <button onclick="resetSistema()">♻️ Reiniciar Sistema</button>
-            <button onclick="atualizarDados()">🔄 Atualizar</button>
-            <button onclick="exportarCSV()">📁 Exportar CSV</button>
-            <button onclick="modoAutomatico()">🤖 Modo Automático</button>
+            
+            <div class="grupo-botoes">
+                <h3>Operação Básica</h3>
+                <button onclick="alternarAC()">🔘 Ligar/Desligar</button>
+                <button onclick="setTemperaturaDesejada()">🌡️ Definir Temperatura</button>
+                <button onclick="atualizarDados()">🔄 Atualizar Dados</button>
+            </div>
+            
+            <div class="grupo-botoes">
+                <h3>Modos de Funcionamento</h3>
+                <button onclick="modoAutomatico()">🤖 Modo Automático</button>
+                <button onclick="modoEconomico()">💡 Modo Econômico</button>
+                <button onclick="modoTurbo()">🚀 Modo Turbo</button>
+            </div>
+
+            <div class="grupo-botoes">
+                <h3>Manutenção e Relatórios</h3>
+                <button onclick="exportarCSV()">📁 Exportar CSV</button>
+                <button onclick="resetSistema()">♻️ Reiniciar Sistema</button>
+            </div>
         </section>
 
-        <!-- DETALHES E DIAGNÓSTICO -->
-        <section class="secundario">
-            <h2>🛠️ Detalhes Técnicos</h2>
-            <p><strong>Tempo de Funcionamento:</strong> <span id="tempoFunc">--</span></p>
-            <p><strong>Status do Compressor:</strong> <span id="statusCompressor">Inativo</span></p>
-            <p><strong>Velocidade do Fluxo:</strong> <span id="velocidadeFluxo">Média</span></p>
-            <p><strong>Temp. Evaporador:</strong> <span id="tempEvaporador">-- °C</span></p>
-            <p><strong>Eficiência Energética:</strong> <span id="eficienciaEnergetica">--</span></p>
-            <p><strong>Status Sensores:</strong> <span id="statusSensores">OK</span></p>
-            <hr>
-            <p><strong>Conexão:</strong> <span id="conexao" class="inativo">Offline</span></p>
-            <p><strong>Firmware:</strong> <span id="firmware">V1.0</span></p> 
-            <p><strong>IP do Dispositivo:</strong> <span id="ipDispositivo">--</span></p>
+        <section class="info-tecnica">
+            <h2>🛠️ Informações Técnicas e Manutenção</h2>
+            
+            <section class="secundario">
+                <h3>Detalhes de Hardware</h3>
+                <ul>
+                    <li><strong>Status do Compressor:</strong> <span id="statusCompressor">Inativo</span></li>
+                    <li><strong>Velocidade do Fluxo:</strong> <span id="velocidadeFluxo">Média</span></li>
+                    <li><strong>Temp. Evaporador:</strong> <span id="tempEvaporador">-- °C</span></li>
+                    <li><strong>Status Sensores:</strong> <span id="statusSensores">OK</span></li>
+                </ul>
+            </section>
+            
+            <section class="secundario">
+                <h3>Métricas e Conexão</h3>
+                <ul>
+                    <li><strong>Tempo de Funcionamento:</strong> <span id="tempoFunc">--</span></li>
+                    <li><strong>Consumo Estimado:</strong> <span id="consumo">-- kWh</span></li>
+                    <li><strong>Conexão:</strong> <span id="conexao" class="inativo">Offline</span></li>
+                    <li><strong>IP do Dispositivo:</strong> <span id="ipDispositivo">--</span></li>
+                </ul>
+            </section>
+            
+            <section class="secundario">
+                <h3>Detalhes de Software</h3>
+                <ul>
+                    <li><strong>Última Leitura:</strong> <span id="ultimaAtualizacao">--:--</span></li>
+                    <li><strong>Data/Hora Atual:</strong> <span id="dataHora">--/--/---- --:--</span></li>
+                    <li><strong>Firmware:</strong> <span id="firmware">V1.0</span></li>
+                </ul>
+            </section>
         </section>
 
-        <!-- CONFIGURAÇÕES -->
-        <section class="extra">
-            <h2>📊 Configurações e Métricas</h2>
-            <p><strong>Temperatura Desejada:</strong> <span id="tempDesejada">24 °C</span></p>
-            <p><strong>Consumo Estimado:</strong> <span id="consumo">-- kWh</span></p>
-            <p><strong>Modo Atual:</strong> <span id="modoAtual">Frio</span></p>
-            <p><strong>Vida Útil do Filtro:</strong> <span id="filtroVidaUtil">100%</span></p> 
-            <p><strong>Último Alerta Grave:</strong> <span id="historicoAlerta">Nenhum</span></p> 
-        </section>
-
-        <!-- PREVISÃO DO TEMPO -->
         <section class="clima">
             <h2>☀️ Previsão do Tempo</h2>
             <p><strong>Hoje:</strong> <span id="climaHoje">--</span></p>
-            <p><strong>Amanhã:</strong> <span id="climaAmanha">--</span></p
-
+            <p><strong>Amanhã:</strong> <span id="climaAmanha">--</span></p>
+        </section>
+    </main>
+</body>
+</html>
