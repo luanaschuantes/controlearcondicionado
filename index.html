@@ -52,22 +52,22 @@
             
             <div class="grupo-botoes">
                 <h3>Operação Básica</h3>
-                <button onclick="alternarAC()">🔘 Ligar/Desligar</button>
-                <button onclick="setTemperaturaDesejada()">🌡️ Definir Temperatura</button>
-                <button onclick="atualizarDados()">🔄 Atualizar Dados</button>
+                <button class="btn" onclick="alternarAC()">🔘 Ligar/Desligar</button>
+                <button class="btn" onclick="setTemperaturaDesejada()">🌡️ Definir Temperatura</button>
+                <button class="btn" onclick="atualizarDados()">🔄 Atualizar Dados</button>
             </div>
             
             <div class="grupo-botoes">
                 <h3>Modos de Funcionamento</h3>
-                <button onclick="modoAutomatico()">🤖 Modo Automático</button>
-                <button onclick="modoEconomico()">💡 Modo Econômico</button>
-                <button onclick="modoTurbo()">🚀 Modo Turbo</button>
+                <button class="btn" onclick="modoAutomatico()">🤖 Modo Automático</button>
+                <button class="btn" onclick="modoEconomico()">💡 Modo Econômico</button>
+                <button class="btn" onclick="modoTurbo()">🚀 Modo Turbo</button>
             </div>
 
             <div class="grupo-botoes">
                 <h3>Manutenção e Relatórios</h3>
-                <button onclick="exportarCSV()">📁 Exportar CSV</button>
-                <button onclick="resetSistema()">♻️ Reiniciar Sistema</button>
+                <button class="btn" onclick="exportarCSV()">📁 Exportar CSV</button>
+                <button class="btn" onclick="resetSistema()">♻️ Reiniciar Sistema</button>
             </div>
         </section>
 
@@ -110,5 +110,8 @@
             <p><strong>Amanhã:</strong> <span id="climaAmanha">--</span></p>
         </section>
     </main>
+    
+    <script src="script.js"></script>
+
 </body>
 </html>
