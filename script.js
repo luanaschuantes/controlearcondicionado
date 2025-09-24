@@ -28,7 +28,6 @@ function logUsuario(mensagem) {
     logArea.innerHTML += `<div>[${hora}] ${mensagem}</div>`;
 }
 
-
 // ------------------------------
 // ⚙️ Comandos ao Dispositivo
 // ------------------------------
@@ -149,7 +148,6 @@ function exportarCSV() {
         .catch(() => alert("❌ Erro ao exportar CSV."));
 }
 
-
 // ------------------------------
 // 📡 Atualização dos Dados
 // ------------------------------
@@ -196,8 +194,8 @@ function atualizarDados() {
                 alertaEl.innerText = "❄️ Ambiente frio. AC está desligado.";
                 alertaEl.className = "alerta frio";
             } else {
-                alertaEl.innerText = "";
-                alertaEl.className = "";
+                alertaEl.innerText = "Nenhum alerta ativo.";
+                alertaEl.className = "alerta";
             }
         })
         .catch(error => {
@@ -209,6 +207,33 @@ function atualizarDados() {
         .finally(() => toggleLoader(false));
 }
 
+// ------------------------------
+// 🖱️ Lógica das Abas
+// ------------------------------
+
+function showTab(tabId) {
+    // Esconde todos os conteúdos das abas
+    const contents = document.querySelectorAll('.tab-content');
+    contents.forEach(content => {
+        content.style.display = 'none';
+    });
+
+    // Remove a classe 'active' de todos os botões
+    const buttons = document.querySelectorAll('.tab-button');
+    buttons.forEach(button => {
+        button.classList.remove('active');
+    });
+
+    // Mostra o conteúdo da aba clicada
+    document.getElementById(tabId).style.display = 'block';
+
+    // Adiciona a classe 'active' ao botão clicado
+    event.currentTarget.classList.add('active');
+}
+
 // 🔁 Atualização Automática
 setInterval(atualizarDados, 5000);
 atualizarDados();
+document.addEventListener('DOMContentLoaded', () => {
+    showTab('dashboard'); // Garante que a primeira aba esteja visível ao carregar
+});
