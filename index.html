@@ -18,7 +18,12 @@
         <p>Sala: <strong>2°TEC</strong></p>
     </aside>
 
-    <main>
+    <div class="tabs">
+        <button class="tab-button active" onclick="showTab('dashboard')">Painel Principal</button>
+        <button class="tab-button" onclick="showTab('sobre')">Sobre o Projeto</button>
+    </div>
+
+    <main id="dashboard" class="tab-content active">
         <section class="info">
             <h2>📡 Ambiente e Status Atual</h2>
             
@@ -111,6 +116,15 @@
         </section>
     </main>
     
+    <main id="sobre" class="tab-content">
+        <section class="sobre-projeto">
+            <h2>ℹ️ Sobre o Projeto</h2>
+            <p>Este painel de controle foi desenvolvido com o objetivo de **facilitar o trabalho da funcionária responsável pela gestão de temperatura e ambiente** no Colégio São Cristóvão.</p>
+            <p>Com um controle centralizado, é possível monitorar a sala <strong>2°TEC</strong> de forma remota, garantindo um ambiente de aprendizado mais confortável e produtivo, sem a necessidade de intervenção manual constante.</p>
+            <p>O sistema oferece funcionalidades de monitoramento em tempo real, controle de modos de operação e emissão de alertas, otimizando a rotina e permitindo uma gestão mais eficiente da energia.</p>
+        </section>
+    </main>
+
     <script src="script.js"></script>
 
 </body>
