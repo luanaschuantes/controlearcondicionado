@@ -1,124 +1,242 @@
-/* Reset básico */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", sans-serif;
-}
-
+/* Definições Gerais */
 body {
-    /* Fundo rosa claro sem gradiente ou textura */
-    background-color: #ffe4e6;
-    
-    color: #222;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fce4ec; /* Rosa Claro */
+    color: #1a1a1a; /* Preto Escuro */
+    margin: 0;
+    padding: 30px;
 }
 
-/* Cabeçalho */
-header {
-    background: #d81b60; /* Rosa escuro para destaque */
-    width: 100%;
-    padding: 1rem;
-    text-align: center;
-    color: white;
-    font-size: 1.6rem;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+/* Container Principal */
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* Informações fixas no canto */
-#infoEscola {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: rgba(255,255,255,0.3);
-    padding: 10px 15px;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    text-align: left;
-    color: #4a148c; /* Roxo escuro */
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    z-index: 10;
+/* Cabeçalho de Destaque */
+.header-destaque {
+    background-color: #ff80ab; /* Rosa mais escuro */
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-main {
-    flex: 1;
-    width: 90%;
-    max-width: 700px;
-    margin: 1.5rem auto;
-    background: rgba(255,255,255,0.6);
-    padding: 2rem;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+.header-destaque h1 {
+    margin: 0;
+    font-size: 2em;
 }
 
-/* --- ESTILOS GERAIS PARA AS SEÇÕES --- */
-.info, .secundario, .extra, .info-tecnica, .clima {
-    margin-bottom: 1.8rem;
-    padding: 1rem;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.4);
+.header-destaque .info-valor {
+    font-size: 1.2em;
+    font-weight: normal;
 }
 
-.secundario {
-    border-left: 5px solid #ff80ab;
-    margin-top: 1.5rem;
+/* DASHBOARD GRID */
+.dashboard-grid {
+    display: grid;
+    /* 2 colunas para os painéis de cima (30% e 70%) */
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto; /* Duas linhas de conteúdo */
+    gap: 20px;
 }
 
-.secundario h2, .extra h2, .info-tecnica h2, .clima h2 {
-    color: #d81b60;
-    margin-bottom: 1rem;
+/* Estilo Básico dos Painéis */
+.panel {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 5px solid #ff80ab;
 }
 
-/* --- ESTILOS PARA OS CONTROLES DO SISTEMA --- */
-.controles .grupo-botoes {
-    background: rgba(255, 255, 255, 0.5);
-    padding: 1.5rem;
-    border-radius: 15px;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Alertas e Logs ocupa a linha de baixo inteira */
+.logs-alerts {
+    grid-column: 1 / -1; 
+    border-left: 5px solid #4a4a4a;
 }
 
-.controles h3 {
-    font-size: 1.3rem;
-    color: #4a148c;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid #d81b60;
-    padding-bottom: 0.5rem;
+h2 {
+    color: #4a4a4a;
+    border-bottom: 2px solid #ffb3c1;
+    padding-bottom: 5px;
+    margin-top: 0;
+    font-size: 1.3em;
 }
 
-.controles .btn {
-    padding: 12px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    background-color: #ff80ab;
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-    margin-right: 10px;
-    margin-bottom: 10px;
+/* --- Status Principal (Painel 1) --- */
+.main-control {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.controles .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+.status-box {
+    text-align: center;
+    padding: 15px;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
 }
 
-/* --- ESTILOS PARA OS STATUS DE CONEXÃO --- */
-.ativo {
-    color: #4CAF50; /* Verde para "Online" */
-    font-weight: bold;
+.label {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
 }
 
-.inativo {
-    color: #F44336; /* Vermelho para "Offline" */
-    font-weight: bold;
+.status-valor {
+    font-size: 1.8em;
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 5px;
+    transition: all 0.5s;
+}
+
+/* Cores de Status */
+.status-ligado {
+    background-color: #c8e6c9; /* Verde claro */
+    color: #2e7d32; /* Verde escuro */
+    box-shadow: 0 0 10px rgba(46, 125, 50, 0.4);
+}
+
+.status-desligado {
+    background-color: #ffcdd2; /* Vermelho claro */
+    color: #c62828; /* Vermelho escuro */
+    box-shadow: 0 0 10px rgba(198, 40, 40, 0.4);
+}
+
+/* BOTOES */
+.controles-botoes button {
+    background-color: #ff80ab;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    margin-right: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.controles-botoes button:hover {
+    background-color: #e91e63;
+    transform: translateY(-2px);
+}
+
+/* --- Temperatura e Modo (Painel 2) --- */
+.temp-control {
+    text-align: center;
+}
+
+.big-value {
+    font-size: 3em;
+    color: #000000;
+    margin: 10px 0;
+    font-weight: 300;
+}
+
+.config-inputs {
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.config-inputs input, .config-inputs select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.config-inputs button {
+    background-color: #4db6ac;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* --- Monitoramento de Sensores (Painel 3) --- */
+.sensor-group {
+    padding: 10px 0;
+    border-bottom: 1px dotted #ccc;
+}
+.sensor-group:last-child {
+    border-bottom: none;
+}
+.sensor-title {
+    font-weight: bold;
+    color: #e91e63;
+    margin-bottom: 5px;
+}
+.sensor-value {
+    font-weight: bold;
+    color: #000000;
+}
+
+/* --- Gráfico Simulado (Painel 4) --- */
+.graph-area {
+    height: 150px;
+    background-color: #eee;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    border: 1px solid #ccc;
+}
+
+.graph-bar {
+    width: 15%;
+    background-color: #ff80ab;
+    transition: height 0.5s;
+    border-radius: 3px 3px 0 0;
+    cursor: help;
+}
+
+.graph-label {
+    text-align: center;
+    font-size: 0.8em;
+    color: #777;
+    margin-top: 5px;
+}
+
+/* --- Logs e Alertas (Painel 5) --- */
+.log-output {
+    height: 100px;
+    overflow-y: scroll;
+    background-color: #e8e8e8;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.log-item {
+    margin: 2px 0;
+    font-size: 0.9em;
+    font-family: monospace;
+}
+
+.log-item.alert {
+    color: #c62828;
+    font-weight: bold;
+}
+
+.log-item.info {
+    color: #2e7d32;
+}
+
+/* Estilo para Permissões */
+.permission-admin {
+    color: #c62828;
+    font-weight: bold;
 }
