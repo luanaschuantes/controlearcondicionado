@@ -1,214 +1,190 @@
-// ------------------------------
-// 🔄 Funções de Utilidade e Feedback Visual
-// ------------------------------
+// Variáveis de Estado Global
+let arCondicionadoLigado = false;
+let temperaturaDesejada = 22;
+let modoAtual = "Ventilacao";
+let papelDoUsuario = "professor"; // 'professor' ou 'tecnico' (simulação de permissão)
 
-function toggleLoader(mostrar) {
-    const loader = document.getElementById("loader");
-    loader.style.display = mostrar ? "block" : "none";
-}
+// Elementos DOM
+const statusElemento = document.getElementById('status-dispositivo');
+const logArea = document.getElementById('log-area');
+const tempAmbienteElemento = document.getElementById('temp-ambiente');
+const umidadeElemento = document.getElementById('umidade');
+const pressaoGasElemento = document.getElementById('pressao-gas');
+const consumoKwElemento = document.getElementById('consumo-kw');
+const velocidadeElemento = document.getElementById('velocidade');
+const modoAtualElemento = document.getElementById('modo-atual');
 
-function atualizarStatus(texto, classe) {
-    const statusEl = document.getElementById("status");
-    statusEl.innerText = texto;
-    statusEl.className = classe;
+// --- 1. FUNÇÕES ESSENCIAIS (DATA/HORA e LOG) ---
+
+function adicionarLog(mensagem, tipo = 'info') {
+    const agora = new Date();
+    const hora = agora.toLocaleTimeString('pt-BR');
+    const novoLog = document.createElement('p');
+    novoLog.className = `log-item ${tipo}`;
+    novoLog.textContent = `[${hora}] ${mensagem}`;
+    
+    // Adiciona no topo e limita o número de logs
+    logArea.prepend(novoLog);
+    if (logArea.children.length > 10) {
+        logArea.removeChild(logArea.lastChild);
+    }
 }
 
 function atualizarDataHora() {
-    const agora = new Date();
-    const data = agora.toLocaleDateString();
-    const hora = agora.toLocaleTimeString();
-    document.getElementById("dataHora").innerText = `${data} ${hora}`;
+    const agora = new Date();
+    const opcoes = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    const dataHoraFormatada = agora.toLocaleTimeString('pt-BR', opcoes);
+    document.getElementById('data-hora').textContent = dataHoraFormatada;
 }
 setInterval(atualizarDataHora, 1000);
 atualizarDataHora();
 
-function logUsuario(mensagem) {
-    const logArea = document.getElementById("logUsuario");
-    const hora = new Date().toLocaleTimeString();
-    logArea.innerHTML += `<div>[${hora}] ${mensagem}</div>`;
+
+// --- 2. SIMULAÇÃO DE SENSORES ---
+
+function simularLeituras() {
+    // Simulação da temperatura ambiente com variação natural
+    let tempAmbiente = parseFloat(tempAmbienteElemento.textContent);
+    
+    // Pequena variação para simular ambiente dinâmico
+    let variacao = (Math.random() - 0.5) * 0.2; 
+
+    if (arCondicionadoLigado && modoAtual === "Frio") {
+        // Se ligado e no frio, a temperatura ambiente tende a cair em direção à desejada
+        if (tempAmbiente > temperaturaDesejada) {
+            variacao -= 0.3; 
+        }
+        // Simulação de consumo maior
+        consumoKwElemento.textContent = (Math.random() * (1.2 - 0.8) + 0.8).toFixed(1) + ' kW';
+    } else if (arCondicionadoLigado && modoAtual === "Aquecimento") {
+        // Se ligado e no aquecimento, a temperatura tende a subir
+        if (tempAmbiente < temperaturaDesejada) {
+            variacao += 0.3; 
+        }
+        consumoKwElemento.textContent = (Math.random() * (1.5 - 1.0) + 1.0).toFixed(1) + ' kW';
+    } else {
+         // Se desligado, temperatura tende a subir (aquecimento natural da sala)
+        if (tempAmbiente < 28) { // Limite máximo para a sala
+             variacao += 0.05; 
+        }
+        consumoKwElemento.textContent = (Math.random() * (0.3 - 0.1) + 0.1).toFixed(1) + ' kW'; // Consumo baixo (ventilação)
+    }
+
+    tempAmbiente = tempAmbiente + variacao;
+    tempAmbiente = Math.min(Math.max(tempAmbiente, 18.0), 30.0); // Limite de 18°C a 30°C
+
+    tempAmbienteElemento.textContent = tempAmbiente.toFixed(1) + '°C';
+    
+    // Umidade e Pressão (apenas variação aleatória para complexidade)
+    umidadeElemento.textContent = (Math.random() * (70 - 50) + 50).toFixed(0) + '%';
+    pressaoGasElemento.textContent = (Math.random() * (5.5 - 4.5) + 4.5).toFixed(1) + ' bar';
+
+    // Checagem de Alerta de Temperatura
+    if (tempAmbiente > 28.0 && !arCondicionadoLigado) {
+        adicionarLog(`ALERTA: Temperatura da Sala atingiu 28.0°C! Considere ligar o AC.`, 'alert');
+    }
+}
+// Atualiza a cada 5 segundos
+setInterval(simularLeituras, 5000);
+simularLeituras();
+
+
+// --- 3. FUNÇÕES DE CONTROLE (BOTÕES) ---
+
+function checkPermission() {
+    // Apenas técnicos podem fazer manutenção (simulação de funcionalidade)
+    if (papelDoUsuario !== 'tecnico') {
+        // Se a funcionalidade fosse mais complexa (e.g., redefinir sistema)
+        // return false; 
+    }
+    return true;
 }
 
-
-// ------------------------------
-// ⚙️ Comandos ao Dispositivo
-// ------------------------------
-
-function alternarAC() {
-    const statusAtual = document.getElementById("status").innerText;
-    const isLigado = statusAtual === "Ligado";
-    const rota = isLigado ? "/desligar" : "/ligar";
-
-    toggleLoader(true);
-
-    fetch(rota, { method: 'POST' })
-        .then(response => {
-            if (!response.ok) throw new Error();
-            atualizarStatus(isLigado ? "Desligado" : "Ligado", isLigado ? "desligado" : "ligado");
-            logUsuario(`AC ${isLigado ? "desligado" : "ligado"}`);
-            atualizarDados();
-        })
-        .catch(() => {
-            atualizarStatus("Erro de conexão", "desligado");
-            alert("❌ Erro ao enviar comando.");
-        })
-        .finally(() => toggleLoader(false));
+function atualizarStatusDisplay() {
+    if (arCondicionadoLigado) {
+        statusElemento.textContent = "LIGADO";
+        statusElemento.classList.remove('status-desligado');
+        statusElemento.classList.add('status-ligado');
+        modoAtualElemento.textContent = modoAtual;
+    } else {
+        statusElemento.textContent = "DESLIGADO";
+        statusElemento.classList.remove('status-ligado');
+        statusElemento.classList.add('status-desligado');
+        modoAtualElemento.textContent = "---";
+        velocidadeElemento.textContent = "Desligada";
+    }
+    
+    document.getElementById('temp-desejada-valor').textContent = `${temperaturaDesejada}°C`;
 }
 
-function setTemperaturaDesejada() {
-    const tempAtual = document.getElementById("tempDesejada").innerText.replace(' °C', '');
-    let valor = prompt("Defina a temperatura desejada (°C):", tempAtual);
-
-    if (valor && !isNaN(valor) && parseFloat(valor) >= 18 && parseFloat(valor) <= 30) {
-        const temp = parseFloat(valor);
-        toggleLoader(true);
-
-        fetch('/set-temp', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ temp })
-        })
-        .then(resp => {
-            if (!resp.ok) throw new Error();
-            document.getElementById("tempDesejada").innerText = `${temp} °C`;
-            logUsuario(`Temperatura ajustada para ${temp} °C`);
-            atualizarDados();
-        })
-        .catch(() => alert("❌ Erro ao definir temperatura."))
-        .finally(() => toggleLoader(false));
-    } else if (valor) {
-        alert("❗ Valor inválido. Digite entre 18 e 30 °C.");
-    }
+function ligarAr() {
+    if (!checkPermission()) return;
+    if (arCondicionadoLigado) {
+        adicionarLog("O AC já está LIGADO.", 'info');
+        return;
+    }
+    arCondicionadoLigado = true;
+    modoAtual = document.getElementById('modo-operacao').value; // Usa o modo selecionado
+    velocidadeElemento.textContent = "Média";
+    atualizarStatusDisplay();
+    adicionarLog(`AC LIGADO no modo: ${modoAtual}. Temp: ${temperaturaDesejada}°C.`);
 }
 
-function modoEconomico() {
-    const tempEconomica = 26;
-    toggleLoader(true);
-
-    fetch('/modo-economico', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ temp: tempEconomica })
-    })
-    .then(resp => {
-        if (!resp.ok) throw new Error();
-        document.getElementById("tempDesejada").innerText = `${tempEconomica} °C`;
-        alert("🌱 Modo Econômico ativado!");
-        logUsuario("Modo Econômico ativado");
-        atualizarDados();
-    })
-    .catch(() => alert("❌ Erro ao ativar modo econômico."))
-    .finally(() => toggleLoader(false));
+function desligarAr() {
+    if (!checkPermission()) return;
+    arCondicionadoLigado = false;
+    atualizarStatusDisplay();
+    adicionarLog("AC DESLIGADO pelo usuário.", 'info');
 }
 
-function modoTurbo() {
-    toggleLoader(true);
-    fetch('/modo-turbo', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ temp: 18 })
-    })
-    .then(resp => {
-        if (!resp.ok) throw new Error();
-        document.getElementById("tempDesejada").innerText = "18 °C";
-        alert("🚀 Modo Turbo ativado! Fluxo máximo.");
-        logUsuario("Modo Turbo ativado");
-        atualizarDados();
-    })
-    .catch(() => alert("❌ Erro ao ativar modo turbo."))
-    .finally(() => toggleLoader(false));
+function setAutomatico() {
+    if (!checkPermission()) return;
+    if (!arCondicionadoLigado) ligarAr();
+    
+    modoAtual = "Automático";
+    document.getElementById('modo-operacao').value = "Frio"; // Reseta o select visualmente
+    velocidadeElemento.textContent = "Automática";
+    atualizarStatusDisplay();
+    adicionarLog("Modo de Operação definido para AUTOMÁTICO (Controle inteligente).");
 }
 
-function resetSistema() {
-    if (confirm("Tem certeza que deseja reiniciar o sistema?")) {
-        toggleLoader(true);
-        fetch('/reset', { method: 'POST' })
-        .then(resp => {
-            if (!resp.ok) throw new Error();
-            alert("🔄 Sistema reiniciado com sucesso.");
-            logUsuario("Sistema reiniciado");
-            atualizarDados();
-        })
-        .catch(() => alert("❌ Falha ao reiniciar o sistema."))
-        .finally(() => toggleLoader(false));
-    }
+function setTemperatura() {
+    if (!checkPermission()) return;
+    const novaTemp = parseInt(document.getElementById('temp-desejada').value);
+    
+    if (novaTemp >= 18 && novaTemp <= 26) {
+        temperaturaDesejada = novaTemp;
+        atualizarStatusDisplay();
+        adicionarLog(`Temperatura desejada ajustada para ${temperaturaDesejada}°C.`);
+        if (arCondicionadoLigado && modoAtual === 'Automático') {
+             // Força a saída do Automático se a temperatura for alterada manualmente
+             modoAtual = document.getElementById('modo-operacao').value; 
+        }
+    } else {
+        alert("Atenção! Defina uma temperatura entre 18°C e 26°C.");
+        adicionarLog("Tentativa de ajuste de temperatura fora dos limites (18-26°C).", 'alert');
+    }
 }
 
-function exportarCSV() {
-    fetch('/exportar-csv')
-        .then(resp => resp.blob())
-        .then(blob => {
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = "dados_ar_condicionado.csv";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            logUsuario("Exportação CSV realizada");
-        })
-        .catch(() => alert("❌ Erro ao exportar CSV."));
+function setModo() {
+    if (!checkPermission()) return;
+    if (arCondicionadoLigado) {
+        modoAtual = document.getElementById('modo-operacao').value;
+        velocidadeElemento.textContent = (modoAtual === 'Ventilacao') ? 'Alta' : 'Média';
+        atualizarStatusDisplay();
+        adicionarLog(`Modo de operação alterado para ${modoAtual}.`);
+    } else {
+        alert("Ligue o Ar Condicionado primeiro para alterar o modo.");
+        document.getElementById('modo-operacao').value = modoAtual; // Mantém o valor anterior no select
+    }
 }
 
-
-// ------------------------------
-// 📡 Atualização dos Dados
-// ------------------------------
-
-function atualizarDados() {
-    toggleLoader(true);
-
-    fetch('/dados')
-        .then(resp => resp.json())
-        .then(data => {
-            document.getElementById('temp').innerText = `${data.temp.toFixed(1)} °C`;
-            document.getElementById('tempExterna').innerText = `${data.tempExterna.toFixed(1)} °C`;
-            document.getElementById('umid').innerText = `${data.umid} %`;
-            document.getElementById('ultimaAtualizacao').innerText = new Date().toLocaleTimeString();
-
-            atualizarStatus(data.status, data.status === "Ligado" ? "ligado" : "desligado");
-
-            document.getElementById('tempoFunc').innerText = data.tempoFunc;
-            document.getElementById('statusCompressor').innerText = data.statusCompressor;
-            document.getElementById('velocidadeFluxo').innerText = data.velocidadeFluxo;
-            document.getElementById('tempEvaporador').innerText = `${data.tempEvaporador.toFixed(1)} °C`;
-
-            const conexaoEl = document.getElementById('conexao');
-            conexaoEl.innerText = data.conexao;
-            conexaoEl.className = data.conexao === "Online" ? "ativo" : "inativo";
-
-            document.getElementById('firmware').innerText = data.firmware;
-            document.getElementById('ipDispositivo').innerText = data.ipDispositivo;
-
-            document.getElementById("tempDesejada").innerText = `${data.tempDesejada} °C`;
-            document.getElementById("consumo").innerText = data.consumo.toFixed(2) + " kWh";
-            document.getElementById('modoAtual').innerText = data.modoAtual;
-            document.getElementById('filtroVidaUtil').innerText = data.filtroVidaUtil;
-            document.getElementById('historicoAlerta').innerText = data.historicoAlerta;
-
-            // 🔔 Nova lógica de alertas
-            const alertaEl = document.getElementById("alerta");
-            const tempDesejada = parseFloat(data.tempDesejada);
-
-            if (data.temp > tempDesejada + 2 && data.status === "Ligado") {
-                alertaEl.innerText = "⚠️ Temperatura acima do desejado!";
-                alertaEl.className = "alerta quente";
-            } else if (data.temp < 20 && data.status === "Desligado") {
-                alertaEl.innerText = "❄️ Ambiente frio. AC está desligado.";
-                alertaEl.className = "alerta frio";
-            } else {
-                alertaEl.innerText = "";
-                alertaEl.className = "";
-            }
-        })
-        .catch(error => {
-            console.error("Erro ao buscar dados:", error);
-            document.getElementById("alerta").innerText = "❌ Falha na comunicação.";
-            document.getElementById('conexao').innerText = "Offline";
-            document.getElementById('conexao').className = "inativo";
-        })
-        .finally(() => toggleLoader(false));
-}
-
-// 🔁 Atualização Automática
-setInterval(atualizarDados, 5000);
-atualizarDados();
+// Configuração Inicial
+document.addEventListener('DOMContentLoaded', () => {
+    // Configura o papel do usuário no display
+    document.getElementById('user-role').textContent = papelDoUsuario.charAt(0).toUpperCase() + papelDoUsuario.slice(1);
+    document.getElementById('user-permission').textContent = (papelDoUsuario === 'tecnico') ? 'Total' : 'Administrativa';
+    
+    // Inicializa
+    atualizarStatusDisplay();
+});
