@@ -1,107 +1,117 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard HVAC - Colégio São Cristóvão</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard HVAC - Colégio São Cristóvão</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <header class="header-principal">
-            <h1>Controle de Monitoramento de Ar Condicionado</h1>
-            <p id="data-hora" class="info-valor"></p>
+  <div class="container">
+    <header class="header-principal">
+      <h1>Controle de Monitoramento de Ar Condicionado</h1>
+      <p id="data-hora" class="info-valor"></p>
+      <div class="colegio-info">2° Ano Tec Colégio São Cristóvão</div>
+    </header>
 
-            <div class="colegio-info">
-                <span>2° Ano Tec Colégio São Cristóvão</span>
-            </div>
-        </header>
+    <main class="dashboard-grid">
+      <!-- Painéis já existentes -->
+      <section class="panel main-control">
+        <h2>Status e Controle Principal</h2>
+        <div class="status-box">
+          <p class="label">Dispositivo:</p>
+          <p id="status-dispositivo" class="status-valor status-desligado">DESLIGADO</p>
+        </div>
+        <div class="user-info">
+          <p>Usuário Logado: <span id="user-role">Professor</span></p>
+          <p>Permissão: <span id="user-permission" class="permission-admin">Administrativa</span></p>
+        </div>
+        <div class="controles-botoes">
+          <button id="btn-ligar" onclick="ligarAr()">LIGAR</button>
+          <button id="btn-desligar" onclick="desligarAr()">DESLIGAR</button>
+          <button id="btn-auto" onclick="setAutomatico()">AUTOMÁTICO</button>
+        </div>
+      </section>
 
-        <main class="dashboard-grid">
+      <section class="panel temp-control">
+        <h2>Configuração Detalhada</h2>
+        <div class="temp-display">
+          <p class="label">Temperatura Desejada:</p>
+          <p id="temp-desejada-valor" class="big-value">22°C</p>
+        </div>
+        <div class="config-inputs">
+          <label for="temp-desejada">Definir (°C):</label>
+          <input type="number" id="temp-desejada" value="22" min="18" max="26" />
+          <button onclick="setTemperatura()">Aplicar</button>
+        </div>
+        <div class="config-inputs">
+          <label for="modo-operacao">Modo:</label>
+          <select id="modo-operacao" onchange="setModo()">
+            <option value="Frio">Frio</option>
+            <option value="Ventilacao">Ventilação</option>
+            <option value="Aquecimento">Aquecimento</option>
+          </select>
+        </div>
+        <p>Modo Atual: <span id="modo-atual" class="info-valor">---</span></p>
+      </section>
 
-            <section class="panel main-control">
-                <h2>Status e Controle Principal</h2>
-                <div class="status-box">
-                    <p class="label">Dispositivo:</p>
-                    <p id="status-dispositivo" class="status-valor status-desligado">DESLIGADO</p>
-                </div>
-                
-                <div class="user-info">
-                    <p>Usuário Logado: <span id="user-role">Professor</span></p>
-                    <p>Permissão: <span id="user-permission" class="permission-admin">Administrativa</span></p>
-                </div>
+      <section class="panel sensor-monitor">
+        <h2>Leituras Atuais dos Sensores</h2>
+        <div class="sensor-group">
+          <p class="sensor-title">Ambiente:</p>
+          <p>Temperatura: <span id="temp-ambiente" class="sensor-value">25.0°C</span></p>
+          <p>Umidade: <span id="umidade" class="sensor-value">60%</span></p>
+        </div>
+        <div class="sensor-group">
+          <p class="sensor-title">Dispositivo Interno:</p>
+          <p>Pressão do Gás: <span id="pressao-gas" class="sensor-value">5.2 bar</span></p>
+          <p>Consumo (kW): <span id="consumo-kw" class="sensor-value">0.8 kW</span></p>
+        </div>
+        <p>Velocidade Ventoinha: <span id="velocidade" class="sensor-value">Média</span></p>
+      </section>
 
-                <div class="controles-botoes">
-                    <button id="btn-ligar" onclick="ligarAr()" data-permission="professor">LIGAR</button>
-                    <button id="btn-desligar" onclick="desligarAr()" data-permission="professor">DESLIGAR</button>
-                    <button id="btn-auto" onclick="setAutomatico()" data-permission="professor">AUTOMÁTICO</button>
-                </div>
-            </section>
+      <section class="panel graph-simulated">
+        <h2>Histórico de Temperatura (Última Hora)</h2>
+        <div class="graph-area">
+          <div class="graph-bar" style="height: 60%;" title="24.5°C"></div>
+          <div class="graph-bar" style="height: 50%;" title="23.8°C"></div>
+          <div class="graph-bar" style="height: 80%;" title="25.2°C"></div>
+          <div class="graph-bar" style="height: 70%;" title="24.9°C"></div>
+          <div class="graph-bar" style="height: 40%;" title="23.5°C"></div>
+          <div class="graph-bar" style="height: 65%;" title="24.7°C"></div>
+        </div>
+        <p class="graph-label">18°C Mín | 26°C Máx</p>
+      </section>
 
-            <section class="panel temp-control">
-                <h2>Configuração Detalhada</h2>
-                
-                <div class="temp-display">
-                    <p class="label">Temperatura Desejada:</p>
-                    <p id="temp-desejada-valor" class="big-value">22°C</p>
-                </div>
-                
-                <div class="config-inputs">
-                    <label for="temp-desejada">Definir (°C):</label>
-                    <input type="number" id="temp-desejada" value="22" min="18" max="26">
-                    <button onclick="setTemperatura()">Aplicar</button>
-                </div>
-                
-                <div class="config-inputs">
-                    <label for="modo-operacao">Modo:</label>
-                    <select id="modo-operacao" onchange="setModo()">
-                        <option value="Frio">Frio</option>
-                        <option value="Ventilacao">Ventilação</option>
-                        <option value="Aquecimento">Aquecimento</option>
-                    </select>
-                </div>
+      <section class="panel logs-alerts">
+        <h2>Logs e Alertas do Sistema</h2>
+        <div id="log-area" class="log-output">
+          <p class="log-item info">[9:00:00] Sistema iniciado e verificando sensores.</p>
+          <p class="log-item info">[9:05:00] Status: Dispositivo DESLIGADO, em modo de espera.</p>
+        </div>
+      </section>
 
-                <p>Modo Atual: <span id="modo-atual" class="info-valor">---</span></p>
-            </section>
-
-            <section class="panel sensor-monitor">
-                <h2>Leituras Atuais dos Sensores</h2>
-                <div class="sensor-group">
-                    <p class="sensor-title">Ambiente:</p>
-                    <p>Temperatura: <span id="temp-ambiente" class="sensor-value">25.0°C</span></p>
-                    <p>Umidade: <span id="umidade" class="sensor-value">60%</span></p>
-                </div>
-                <div class="sensor-group">
-                    <p class="sensor-title">Dispositivo Interno:</p>
-                    <p>Pressão do Gás: <span id="pressao-gas" class="sensor-value">5.2 bar</span></p>
-                    <p>Consumo (kW): <span id="consumo-kw" class="sensor-value">0.8 kW</span></p>
-                </div>
-                <p>Velocidade Ventoinha: <span id="velocidade" class="sensor-value">Média</span></p>
-            </section>
-            
-            <section class="panel graph-simulated">
-                <h2>Histórico de Temperatura (Última Hora)</h2>
-                <div class="graph-area">
-                    <div class="graph-bar" style="height: 60%;" title="24.5°C"></div>
-                    <div class="graph-bar" style="height: 50%;" title="23.8°C"></div>
-                    <div class="graph-bar" style="height: 80%;" title="25.2°C"></div>
-                    <div class="graph-bar" style="height: 70%;" title="24.9°C"></div>
-                    <div class="graph-bar" style="height: 40%;" title="23.5°C"></div>
-                    <div class="graph-bar" style="height: 65%;" title="24.7°C"></div>
-                </div>
-                <p class="graph-label">18°C Mín | 26°C Máx</p>
-            </section>
-
-            <section class="panel logs-alerts">
-                <h2>Logs e Alertas do Sistema</h2>
-                <div id="log-area" class="log-output">
-                    <p class="log-item info">[9:00:00] Sistema iniciado e verificando sensores.</p>
-                    <p class="log-item info">[9:05:00] Status: Dispositivo DESLIGADO, em modo de espera.</p>
-                </div>
-            </section>
-
-        </main>
-    </div>
-    <script src="script.js"></script>
+      <!-- NOVA SEÇÃO: Banco de Dados Simulado -->
+      <section class="panel tabela-dados">
+        <h2>Registros Simulados do Banco de Dados</h2>
+        <table id="tabela-banco" class="tabela">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Data/Hora</th>
+              <th>Status AC</th>
+              <th>Temp Ambiente</th>
+              <th>Modo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Populado por JavaScript -->
+          </tbody>
+        </table>
+        <button onclick="atualizarTabela()">Atualizar Tabela</button>
+      </section>
+    </main>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
