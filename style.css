@@ -1,28 +1,105 @@
-/* Estilo para a Tabela do Banco */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f6f9;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.header-principal {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.panel {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.status-ligado {
+  color: green;
+  font-weight: bold;
+}
+.status-desligado {
+  color: red;
+  font-weight: bold;
+}
+
+.log-item.success { color: green; }
+.log-item.warning { color: orange; }
+.log-item.error { color: red; }
+.log-item.info { color: blue; }
+
+/* Painel expandido */
+.painel-expandido {
+  grid-column: 1 / -1;
+  background-color: #f3f7fa;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Tabela container */
+.tabela-container {
+  overflow-x: auto;
+  margin-top: 15px;
+}
+
+/* Estilo da Tabela */
 .tabela {
-  width: 100%;
+  min-width: 1000px;
   border-collapse: collapse;
-  margin-top: 10px;
-  font-size: 0.9em;
+  font-size: 1em;
+  background-color: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  width: 100%;
 }
 
 .tabela th, .tabela td {
-  border: 1px solid #ccc;
-  padding: 8px 12px;
+  border: 1px solid #ddd;
+  padding: 12px 18px;
   text-align: center;
+  transition: background-color 0.2s ease;
 }
 
 .tabela th {
   background-color: #f8bbd0;
   color: #000;
+  font-weight: bold;
+}
+
+.tabela tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tabela tr:hover {
+  background-color: #ffe4ec;
 }
 
 .tabela-dados button {
-  margin-top: 10px;
-  padding: 8px 15px;
+  margin-top: 15px;
+  padding: 12px 20px;
   background-color: #4db6ac;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
 }
+
+.tabela-d
