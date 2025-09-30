@@ -1,12 +1,11 @@
-/* Fundo da Página */
+/* Fundo da Página e Painéis */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  background: #ffe4ec; /* Fundo rosa claro */
+  background: #ffe4ec; /* Fundo rosa claro geral */
   color: #333;
 }
 
-/* Container Principal */
 .container {
   max-width: 1200px;
   margin: auto;
@@ -26,12 +25,12 @@ body {
   gap: 20px;
 }
 
-/* Painéis */
+/* Painéis com fundo rosa mais claro */
 .panel {
-  background: white;
+  background: #fff0f5; /* rosa muito claro */
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(255, 182, 193, 0.4); /* sombra rosa suave */
 }
 
 /* Status */
@@ -48,18 +47,18 @@ body {
 .log-item.success { color: green; }
 .log-item.warning { color: orange; }
 .log-item.error { color: red; }
-.log-item.info { color: blue; }
+.log-item.info { color: #cc3366; }
 
-/* Painel Expandido */
+/* Painel expandido */
 .painel-expandido {
   grid-column: 1 / -1;
-  background-color: #fce4ec; /* Painel rosa claro */
+  background-color: #ffe4f0;
   border-radius: 8px;
   padding: 25px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 10px rgba(204, 51, 102, 0.1);
 }
 
-/* Área da Tabela */
+/* Área da tabela */
 .tabela-container {
   overflow-x: auto;
   margin-top: 15px;
@@ -70,15 +69,16 @@ body {
   min-width: 1000px;
   border-collapse: collapse;
   font-size: 1em;
-  background-color: #fff;
+  background-color: #fff0f5;
   border-radius: 6px;
   overflow: hidden;
   width: 100%;
+  box-shadow: 0 2px 6px rgba(255, 182, 193, 0.3);
 }
 
 .tabela th,
 .tabela td {
-  border: 1px solid #ddd;
+  border: 1px solid #f8bbd0;
   padding: 12px 18px;
   text-align: center;
   transition: background-color 0.2s ease;
@@ -91,18 +91,18 @@ body {
 }
 
 .tabela tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.tabela tr:hover {
   background-color: #ffe4ec;
 }
 
-/* Botão da Tabela */
+.tabela tr:hover {
+  background-color: #ffd1dc;
+}
+
+/* Botão da tabela */
 .tabela-dados button {
   margin-top: 15px;
   padding: 12px 20px;
-  background-color: #4db6ac;
+  background-color: #cc3366;
   color: white;
   border: none;
   border-radius: 6px;
@@ -112,5 +112,5 @@ body {
 }
 
 .tabela-dados button:hover {
-  background-color: #00897b;
+  background-color: #991f43;
 }
