@@ -1,34 +1,40 @@
+/* Fundo da Página */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  background: #f4f6f9;
+  background: #ffe4ec; /* Fundo rosa claro */
   color: #333;
 }
 
+/* Container Principal */
 .container {
   max-width: 1200px;
   margin: auto;
   padding: 20px;
 }
 
+/* Cabeçalho */
 .header-principal {
   text-align: center;
   margin-bottom: 30px;
 }
 
+/* Grade do Dashboard */
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 20px;
 }
 
+/* Painéis */
 .panel {
   background: white;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Status */
 .status-ligado {
   color: green;
   font-weight: bold;
@@ -38,27 +44,28 @@ body {
   font-weight: bold;
 }
 
+/* Logs */
 .log-item.success { color: green; }
 .log-item.warning { color: orange; }
 .log-item.error { color: red; }
 .log-item.info { color: blue; }
 
-/* Painel expandido */
+/* Painel Expandido */
 .painel-expandido {
   grid-column: 1 / -1;
-  background-color: #f3f7fa;
+  background-color: #fce4ec; /* Painel rosa claro */
   border-radius: 8px;
   padding: 25px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Tabela container */
+/* Área da Tabela */
 .tabela-container {
   overflow-x: auto;
   margin-top: 15px;
 }
 
-/* Estilo da Tabela */
+/* Tabela */
 .tabela {
   min-width: 1000px;
   border-collapse: collapse;
@@ -69,7 +76,8 @@ body {
   width: 100%;
 }
 
-.tabela th, .tabela td {
+.tabela th,
+.tabela td {
   border: 1px solid #ddd;
   padding: 12px 18px;
   text-align: center;
@@ -90,6 +98,7 @@ body {
   background-color: #ffe4ec;
 }
 
+/* Botão da Tabela */
 .tabela-dados button {
   margin-top: 15px;
   padding: 12px 20px;
@@ -102,4 +111,6 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.tabela-d
+.tabela-dados button:hover {
+  background-color: #00897b;
+}
