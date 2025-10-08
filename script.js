@@ -7,7 +7,6 @@ let bancoDeDadosSimulado = [];
 let idRegistro = 1;
 
 // Variáveis para simular conexões reais (Mantenha como 'false' para testar os alertas)
-// Altere para TRUE quando o Arduino ou o BD real estiverem conectados
 const IS_ARDUINO_CONNECTED = false; // Simula a conexão com o hardware de controle (Arduino)
 const IS_DATABASE_CONNECTED = false; // Simula a conexão com um BD persistente
 
@@ -38,7 +37,7 @@ function checkPermission() {
     return true;
 }
 
-// NOVIDADE: Verifica se o dispositivo de controle (Arduino) está pronto
+// Verifica se o dispositivo de controle (Arduino) está pronto
 function checkArduinoConnection() {
     if (!IS_ARDUINO_CONNECTED) {
         alert("⚠️ ATENÇÃO: Dispositivo de controle (Arduino) não conectado. O comando não será enviado ao hardware.");
@@ -133,7 +132,7 @@ function setModo() {
 // ============================
 
 function registrarNoBanco() {
-    // NOVIDADE: ALERTA CLARO SOBRE O BANCO DE DADOS
+    // Alerta de BD Simulado (aparece ao registrar um dado)
     if (!IS_DATABASE_CONNECTED) {
         alert("🚨 ALERTA BD: O histórico de ações está sendo salvo APENAS no 'Banco de Dados Simulado' (na memória do navegador). Os dados NÃO estão sendo persistidos em um banco de dados real. Para persistir, defina 'IS_DATABASE_CONNECTED' como true.");
     }
@@ -161,6 +160,11 @@ function registrarNoBanco() {
 }
 
 function atualizarTabela() {
+    // Alerta de BD Simulado (aparece ao atualizar a tabela)
+    if (!IS_DATABASE_CONNECTED) {
+        alert("🚨 ALERTA BD: A tabela exibe o 'Banco de Dados Simulado' (na memória do navegador). Os dados NÃO estão sendo lidos ou persistidos em um banco de dados real. Esta tabela será zerada ao recarregar a página.");
+    }
+    
     const tbody = document.querySelector("#tabela-banco tbody");
     tbody.innerHTML = "";
 
@@ -190,6 +194,7 @@ atualizarRelogio();
 // Define o modo e a temperatura inicial na carga da página
 document.addEventListener('DOMContentLoaded', () => {
     // Garante que a temperatura e o modo inicial sejam exibidos ao carregar
+    // (A chamada dessas funções aciona o alerta de BD e Arduino, se estiverem como false)
     setTemperatura(); 
     setModo(); 
 });
