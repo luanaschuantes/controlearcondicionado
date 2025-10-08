@@ -6,9 +6,10 @@ let modoAtual = "---";
 let bancoDeDadosSimulado = [];
 let idRegistro = 1;
 
-// NOVO: Variáveis para simular conexões reais
-const IS_ARDUINO_CONNECTED = false; // Mude para true quando conectado ao hardware
-const IS_DATABASE_CONNECTED = false; // Mude para true quando conectado ao BD real
+// Variáveis para simular conexões reais (Mantenha como 'false' para testar os alertas)
+// Altere para TRUE quando o Arduino ou o BD real estiverem conectados
+const IS_ARDUINO_CONNECTED = false; // Simula a conexão com o hardware de controle (Arduino)
+const IS_DATABASE_CONNECTED = false; // Simula a conexão com um BD persistente
 
 const tempAmbienteElemento = document.getElementById("temp-ambiente");
 const statusDispositivo = document.getElementById("status-dispositivo");
@@ -28,6 +29,7 @@ function adicionarLog(mensagem, tipo = "info") {
 }
 
 function checkPermission() {
+    // Nesta simulação, 'Administrativa' é a única que permite a ação.
     const permissao = document.getElementById("user-permission").textContent;
     if (permissao !== "Administrativa") {
         adicionarLog("Ação bloqueada: Permissão insuficiente.", "warning");
@@ -36,8 +38,8 @@ function checkPermission() {
     return true;
 }
 
-// NOVO: Função para verificar se o sistema está pronto para a ação real
-function checkConnection() {
+// NOVIDADE: Verifica se o dispositivo de controle (Arduino) está pronto
+function checkArduinoConnection() {
     if (!IS_ARDUINO_CONNECTED) {
         alert("⚠️ ATENÇÃO: Dispositivo de controle (Arduino) não conectado. O comando não será enviado ao hardware.");
         return false;
@@ -50,7 +52,7 @@ function checkConnection() {
 // =======================
 function ligarAr() {
     if (!checkPermission()) return;
-    if (!checkConnection()) { // Verifica a conexão antes de prosseguir
+    if (!checkArduinoConnection()) { // Verifica a conexão com o Arduino
         adicionarLog("AC não LIGADO: Falha na comunicação com o Arduino.", "error");
         return; 
     }
@@ -69,7 +71,7 @@ function ligarAr() {
 
 function desligarAr() {
     if (!checkPermission()) return;
-    if (!checkConnection()) { // Verifica a conexão antes de prosseguir
+    if (!checkArduinoConnection()) { // Verifica a conexão com o Arduino
         adicionarLog("AC não DESLIGADO: Falha na comunicação com o Arduino.", "error");
         return; 
     }
@@ -88,12 +90,13 @@ function desligarAr() {
 
 function setAutomatico() {
     if (!checkPermission()) return;
-    if (!checkConnection()) { // Verifica a conexão
+    if (!checkArduinoConnection()) { // Verifica a conexão com o Arduino
         adicionarLog("Modo Automático não ativado: Falha no sensor/controle.", "error");
         return;
     }
     adicionarLog("Modo AUTOMÁTICO ativado. O sistema gerenciará o AC com base nos sensores.", "info");
-    // Lógica para iniciar o loop de controle automático aqui
+    // Aqui seria a lógica para iniciar o loop de controle automático
+    registrarNoBanco();
 }
 
 function setTemperatura() {
@@ -101,12 +104,13 @@ function setTemperatura() {
     tempDesejadaElemento.textContent = `${novaTemp}°C`;
     
     // Alerta se o comando de temperatura não pode ser enviado
-    if (!checkConnection()) {
-        adicionarLog(`Temperatura desejada visualizada, mas não enviada ao AC.`, "warning");
+    if (!checkArduinoConnection()) {
+        adicionarLog(`Temperatura visualizada, mas não enviada ao AC.`, "warning");
         return;
     }
     
     adicionarLog(`Temperatura desejada definida para ${novaTemp}°C (Comando Enviado).`, "info");
+    registrarNoBanco();
 }
 
 function setModo() {
@@ -115,7 +119,7 @@ function setModo() {
     modoAtualElemento.textContent = novoModo;
     
     // Alerta se o comando de modo não pode ser enviado
-    if (!checkConnection()) {
+    if (!checkArduinoConnection()) {
         adicionarLog(`Modo visualizado, mas não enviado ao AC.`, "warning");
         return;
     }
@@ -129,9 +133,9 @@ function setModo() {
 // ============================
 
 function registrarNoBanco() {
-    // Alerta se o registro deve ir para o BD real
+    // NOVIDADE: ALERTA CLARO SOBRE O BANCO DE DADOS
     if (!IS_DATABASE_CONNECTED) {
-        alert("⚠️ ATENÇÃO: O registro de log está sendo salvo apenas na memória (BD Simulado), não no Banco de Dados real.");
+        alert("🚨 ALERTA BD: O histórico de ações está sendo salvo APENAS no 'Banco de Dados Simulado' (na memória do navegador). Os dados NÃO estão sendo persistidos em um banco de dados real. Para persistir, defina 'IS_DATABASE_CONNECTED' como true.");
     }
     
     const agora = new Date();
@@ -148,6 +152,7 @@ function registrarNoBanco() {
     };
 
     bancoDeDadosSimulado.unshift(novoRegistro);
+    // Limita o histórico a 10 registros
     if (bancoDeDadosSimulado.length > 10) {
         bancoDeDadosSimulado.pop();
     }
@@ -181,3 +186,10 @@ function atualizarRelogio() {
 }
 setInterval(atualizarRelogio, 1000);
 atualizarRelogio();
+
+// Define o modo e a temperatura inicial na carga da página
+document.addEventListener('DOMContentLoaded', () => {
+    // Garante que a temperatura e o modo inicial sejam exibidos ao carregar
+    setTemperatura(); 
+    setModo(); 
+});
